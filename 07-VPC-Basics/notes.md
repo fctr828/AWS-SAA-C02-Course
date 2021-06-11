@@ -560,5 +560,7 @@ no recovery. You must deploy one in each AZ you use for region resillience.
 #### Nat Instance vs NATGW
 
 NATGW should be the default for most situations.
+
 NATGW cannot do port forwarding or be a bastion server.
+
 NATGW does not support SGs, only NACLs.
