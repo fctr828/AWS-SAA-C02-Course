@@ -2128,7 +2128,7 @@ with a Route Table in each AZ with NATGW as target.
 - You can connect to NAT instance just like any other instance, you can use them as Bastion host or can use them for port forwarding.
 - With NAT Gateway it is not possible, it is managed service. NAT Gateway cannot be used as Bastion host and it cannot do port forwarding.
 - You cannot use SG with NATGW, you can only use NACLs.
-- NATGW don't work with IPv6. NAT is not required for IPv6. Inside AWS all IPv6 addresses are publicly routable. IG works with all IPv6 addresses directly.
+- NATGWs don't work with IPv6. NAT is not required for IPv6. Inside AWS all IPv6 addresses are publicly routable. IG works with all IPv6 addresses directly.
 - That means if you choose to make an instance in private subnet that have a default IPv6 route to IG, it'll become public instance.
 - Managed service, scales up to 45 Gbps. Can deploy multiple NATGW to increase
 bandwidth.
@@ -2638,7 +2638,7 @@ around the license to different EC2 instances.
 - The OS doesn't see the IPv4 public address.
 - You always configure the private IPv4 private address on the interface.
 - Never configure an OS with a public IPv4 address.
-- IPv4 Public IPs are Dynamic, starting and stopping will kill it.
+- IPv4 Public IPs are Dynamic, starting and stopping will change it. To avoid this, you can allocate an elastic IP address, which is static.
 
 Public DNS for a given instance will resolve to the primary private IP
 address in a VPC. If you have instance to instance communication within
