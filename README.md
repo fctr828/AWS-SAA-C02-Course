@@ -2601,7 +2601,7 @@ If you stop an instance the address is removed.
 When you start up again, it is given a brand new IPv4 address.
 Restarting the instance will not change the IP address.
 Changing between EC2 hosts will change the address.
-This will be allocated a public DNS name. The Public DNS name will resolve to
+This will be allocated a public DNS name. Inside the VPC the Public DNS name will resolve to
 the primary private IPv4 address of the instance.
 Outside of the VPC, the DNS will resolve to the public IP address.
 This allows one single DNS name for an instance, and allows traffic to resolve
