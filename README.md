@@ -4188,6 +4188,27 @@ This could cause backend unevenness because one user will always be forced
 to the same server no matter what the distributed load is. Applications
 should be designed to hold session stickiness somewhere other than EC2. You can hold session state in, for instance, DynamoDB. If store session state data externally, this means EC2 instances will be completely stateless.
 
+#### 1.12.7. Gateway Load Balancer
+
+A recent addition to AWS load balancer family.
+Help you run and scale 3rd party appliances, like firewalls, intrusion detection and prevention systems, data analysis tools, etc.
+Offer transparent inspection and protection of inbound and outbound traffic.
+
+Components:
+- GWLB endpoints - run from a VPC where the traffic you want to monitor, filter or control originates from or is destined to.
+- Gateway Load Balancer itself - load balances packets across multiple backend instances (security appliances running on EC2 instances).
+
+GWLB Endpoints are like interface endpoints, but they can be added to route table as the next hop.
+Traffic and metadata is tunneled using GENEVE protocol.
+
+Traffic flow:
+1. Traffic first enters GWLB endpoint and is passed on to GWLB, which usually resides in a separate VPC 
+2. GWLB tunnels the original packets in an unaltered form through to backend security appliances using the GENEVE protocol (if there was no encapsulation, it might cause issues with src/dst IP ranges etc.)
+3. Security appliances scan and analyze the packets, review them for any security issues, block them or adjust them as needed
+4. When that's done, the packets are returned over the same tunnel back to the load balancer, GENEVE encapsulation is removed, and the packets move back to GWLB endpoint and through to the intended destination.  
+
+The benefit is that GWLB will load balance across multiple security appliances, so it's possible to scale them horizontally.
+
 ---
 
 ## 1.13. Serverless-and-App-Services
